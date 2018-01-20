@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+                android:name=".VolunteerSelection"
+                android:label="@string/title_activity_volunteer_selection"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name="com.hacktown.bertha.bertha.VolunteerSelection"
+                android:label="@string/title_activity_volunteer_selection"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.hacktown.bertha.bertha.Chat">
+        </activity>
     </application>
 
 </manifest>
