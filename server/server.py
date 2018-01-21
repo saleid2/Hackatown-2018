@@ -44,6 +44,9 @@ def join_room():
     else:
         return jsonify("NO")
 
+@app.route('/user/<user>/rooms', methods=['GET'])
+def get_user_rooms(user):
+    return [x for x in linked_rooms if linked_rooms[x] == user]
 
 @app.route('/room/<room>/message', methods=['GET', 'POST'])
 def update_messages(room):
