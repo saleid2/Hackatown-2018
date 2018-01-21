@@ -1,7 +1,8 @@
 from flask import Flask, request,jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
+CORS(app)
 
 empty_rooms = []
 volunteers = []
@@ -15,7 +16,8 @@ def hello_world():
 
 @app.route('/users/new', methods=['POST'])
 def add_new_user():
-    user = request.get_json()['user']
+    user = request.form.getlist('user')[0]
+    print(user)
     empty_rooms.append(user)
     room = {}
     room["room_name"] = user
@@ -24,7 +26,7 @@ def add_new_user():
 
 @app.route('/users/new_volunteer', methods=['POST'])
 def add_new_volunteer():
-    user = request.get_json()['user']
+    user = request.form.getlist('user')
     volunteers.append(user)
     return jsonify("OK")
 
@@ -34,9 +36,9 @@ def get_rooms():
 
 @app.route('/rooms/join', methods=['POST'])
 def join_room():
-    incoming_data = request.get_json()
-    room = incoming_data['room']
-    user = incoming_data['user']
+    incoming_data = request.form
+    room = incoming_data('room')
+    user = incoming_data('user')
     if empty_rooms.count(room) == 1:
         empty_rooms.remove(room)
         linked_rooms[room] = user
@@ -55,9 +57,9 @@ def update_messages(room):
         room_unread_messages[room] = {}
         return jsonify(outgoing_messages)
     else:
-        incoming_data = request.get_json()
-        incoming_message = incoming_data['message']
-        sender = incoming_data['user']
+        incoming_data = request.form
+        incoming_message = incoming_data('message')
+        sender = incoming_data('user')
         message_data = {}
         message_data['sender'] = sender
         message_data['message'] = incoming_message
