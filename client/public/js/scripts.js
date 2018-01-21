@@ -1,5 +1,3 @@
-"user strict";
-
 
 /**
  * Create new user
