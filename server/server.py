@@ -32,23 +32,28 @@ def add_new_volunteer():
 
 @app.route('/rooms/empty', methods=['GET'])
 def get_rooms():
-    return jsonify(empty_rooms)
+    return jsonify(rooms = empty_rooms)
 
 @app.route('/rooms/join', methods=['POST'])
 def join_room():
     incoming_data = request.form
-    room = incoming_data('room')
-    user = incoming_data('user')
+    room = incoming_data['room']
+    user = incoming_data['user']
     if empty_rooms.count(room) == 1:
         empty_rooms.remove(room)
         linked_rooms[room] = user
-        return jsonify("OK")
+        return jsonify()
     else:
-        return jsonify("NO")
+        return jsonify()
 
 @app.route('/user/<user>/rooms', methods=['GET'])
 def get_user_rooms(user):
-    return [x for x in linked_rooms if linked_rooms[x] == user]
+    if len(linked_rooms.keys()) > 0:
+        rooms_filter = filter(lambda k: linked_rooms[k] == user, linked_rooms.keys())
+        rooms = list(rooms_filter)
+    else:
+        rooms = []
+    return jsonify(rooms = rooms)
 
 @app.route('/room/<room>/message', methods=['GET', 'POST'])
 def update_messages(room):
@@ -58,8 +63,8 @@ def update_messages(room):
         return jsonify(outgoing_messages)
     else:
         incoming_data = request.form
-        incoming_message = incoming_data('message')
-        sender = incoming_data('user')
+        incoming_message = incoming_data['message']
+        sender = incoming_data['user']
         message_data = {}
         message_data['sender'] = sender
         message_data['message'] = incoming_message
@@ -69,7 +74,7 @@ def update_messages(room):
         else:
             room_messages.append(message_data)
         room_unread_messages[room] = room_messages
-        return jsonify('OK')
+        return
 
 
 

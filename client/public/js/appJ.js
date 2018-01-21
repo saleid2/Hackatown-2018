@@ -19,7 +19,7 @@ function makeId() {
  * @param {string} room Room name
  */
 function generateListItem(room){
-    output = "<div id=\"" + room + "\"<ons-list-item tappable>";
+    output = "<div id=\"" + room + "\"\\><ons-list-item tappable>";
     output += room;
     output += "</ons-list-item></div>"
     return output;
@@ -65,7 +65,8 @@ function getEmptyRooms() {
         url: "http://localhost:5000/rooms/empty",
         type: "GET"
     }).done(function (data) {
-        rooms = JSON.parse(data);
+        rooms = data['rooms'];
+        console.log(rooms);
         rooms.forEach(element => {
             domItem = generateListItem(element);
             $("#empty_rooms").append(domItem);
@@ -80,12 +81,12 @@ function getEmptyRooms() {
  * Fetches a list of rooms assigned to current user
  * @param {string} user Username who's rooms must be fetched
  */
-function getAssignedRooms(user){
+function getAssignedRooms(){
     $.ajax({
-        url: "http://localhost:5000//user/"+ user + "/rooms",
+        url: "http://localhost:5000/user/"+ username + "/rooms",
         type: "GET"
     }).done(function(data){
-        rooms = JSON.parse(data);
+        rooms = data['rooms'];
         rooms.forEach(element => {
             domItem = generateListItem(element);
             $("#volunteer_rooms").append(domItem);
@@ -101,12 +102,12 @@ function getAssignedRooms(user){
  * @param {string} room Room that volunteer wants to join
  * @param {string} user Volunteer's username
  */
-function joinRoom(room, user) {
+function joinRoom(room) {
     $.ajax({
         url: "http://localhost:5000/rooms/join",
         type: "POST",
         data: {
-            "user": user,
+            "user": username,
             "room": room
         }
     }).done(function (data) {
@@ -153,10 +154,10 @@ function sendMessage(room, message, user) {
 }
 
 function checkUsername(callback){
-  username = $("#username>input").value;
-  if(typeof username == "undefined"){
+  username = $("#username>input").val();
+  if(username == ""){
     username = makeId();
-    $("#username>input").value = username;
+    $("#username>input").val(username);
   }
   console.log(username);
   callback();
@@ -183,6 +184,8 @@ document.addEventListener('init', function(event) {
       {
         checkUsername(function(){
           createVolunteer(username, function(){
+              getEmptyRooms();
+              getAssignedRooms();
             document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Volunteer'}});
 
           });
