@@ -10,7 +10,26 @@
 </head>
 
 <body>
-  <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+    <ons-splitter>
+        <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+            <ons-list>
+              
+              <ons-list-item onclick="fn.load('report.html')" tappable>
+                Report
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('tags.html')" tappable>
+                Tags
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('review.html')" tappable>
+                Review
+                </ons-list-item>
+              
+            </ons-list>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" > 
+        <ons-navigator id="myNavigator" page="page1.html"></ons-navigator>
+        </ons-splitter-content>
+      </ons-splitter>
 
   <template id="page1.html">
     <!-- HOME PAGE -->
@@ -51,6 +70,13 @@
         <div class="left">
           <ons-back-button>Home Page</ons-back-button>
         </div>
+
+        <div class="right">
+            <ons-toolbar-button onclick="fn.open()">
+              <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+          </div>
+
         <div class="center"></div>
       </ons-toolbar>
 
@@ -80,7 +106,11 @@
         <div class="center"></div>
       </ons-toolbar>
 
-
+        <div class="right">
+             <ons-toolbar-button onclick="fn.open()">
+               <ons-icon icon="md-menu"></ons-icon>
+             </ons-toolbar-button>
+        </div>
       
         <ons-tabbar swipeable position="auto">
           <ons-tab page="tab1.html" label="Help Someone" icon="md-search" active>
