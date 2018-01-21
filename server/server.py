@@ -19,6 +19,7 @@ def add_new_user():
     empty_rooms.append(user)
     room = {}
     room["room_name"] = user
+    room_unread_messages[user] = []
     return jsonify(room)
 
 @app.route('/users/new_volunteer', methods=['POST'])
@@ -27,7 +28,7 @@ def add_new_volunteer():
     volunteers.append(user)
     return jsonify("OK")
 
-@app.route('/rooms/get_empty', methods=['GET'])
+@app.route('/rooms/empty', methods=['GET'])
 def get_rooms():
     return jsonify(empty_rooms)
 
@@ -39,7 +40,6 @@ def join_room():
     if empty_rooms.count(room) == 1:
         empty_rooms.remove(room)
         linked_rooms[room] = user
-        room_unread_messages[room] = []
         return jsonify("OK")
     else:
         return jsonify("NO")
