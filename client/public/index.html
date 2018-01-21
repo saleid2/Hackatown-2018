@@ -1,64 +1,93 @@
+<!--THIS IS A COMMENT-->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset = "utf-8">
+  <meta charset="utf-8">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
+
 <body>
-      <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
+  <ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
 
-<template id="page1.html">
-  <ons-page id="page1">
-    <ons-toolbar>
-      <div class="center">Welcome to Bertha</div>
-    </ons-toolbar>
-   
-    <section style="padding: 8px">
-            
-        <ons-button modifier="large" id="push-button">Get Help</ons-button>
-           
-    </section>
+  <template id="page1.html">
+    <!-- HOME PAGE -->
+    <ons-page id="page1">
+      <ons-toolbar>
+        <div class="center">Welcome to Bertha</div>
+      </ons-toolbar>
+      <div class='vertical_align'>
+        <section style="padding: 8px">
+          <ons-button modifier="large" id="push-button">Get Help</ons-button>
+          <!-- Button to get to the "Get Help" page -->
 
-    <section style="padding: 8px">
-            
-            <ons-button modifier="large"  id="push-button">Volunteer</ons-button>
-               
-    </section>
+        </section>
 
-    <section style="padding: 8px">
-            
-            <ons-button modifier="large" disabled = "true" id="push-button">Certified</ons-button>
-               
-    </section>
+        <section style="padding: 8px">
+          <ons-button modifier="large" id="push-button2">Volunteer</ons-button>
+          <!-- Button to get to the "Volunteer" page -->
 
-  </ons-page>
-</template>
+        </section>
 
-<template id="page2.html">
-  <ons-page id="page2">
-    <ons-toolbar>
-      <div class="left"><ons-back-button>Page 1</ons-back-button></div>
-      <div class="center"></div>
-    </ons-toolbar>
+        <section style="padding: 8px">
+          <ons-button modifier="large" disabled="true">Certified</ons-button>
+          <!-- Button to get to the "Certified" page -->
 
-    <p>This is the second page.</p>
-  </ons-page>
-</template>
+        </section>
+      </div>
+    </ons-page>
+  </template>
 
-<script src = "js/appJ.js"></script>
+  <template id="page2.html">
+    <!-- GET HELP PAGE -->
+    <ons-page id="page2">
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home Page</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+
+      <p>WHAT YOU NEED HELP WITH????</p>
+
+    </ons-page>
+  </template>
+
+  <template id="page3.html">
+    <!-- VOLUNTEER PAGE -->
+    <ons-page id="page3">
+      <ons-toolbar>
+        <div class="left">
+          <ons-back-button>Home Page</ons-back-button>
+        </div>
+        <div class="center"></div>
+      </ons-toolbar>
+
+      <p>WHO YOU GON HELP?????</p>
+
+    </ons-page>
+  </template>
+
+  <script src="js/appJ.js"></script>
 </body>
+
 </html>
 
 <style type="text/css">
-  
-    .page__background {
-    background: url(back.jpg) no-repeat center center fixed; 
+  .vertical_align {
+    position: absolute;
+    top: 35vh !important;
+    width: 100%;
+  }
+
+  .page__background {
+    background: url(back.jpg) no-repeat center center fixed;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    }
-  
-  </style>
+  }
+</style>
