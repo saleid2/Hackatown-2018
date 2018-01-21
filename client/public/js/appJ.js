@@ -20,7 +20,7 @@ function makeId() {
  * Generates the item to add to the list of available rooms
  * @param {string} room Room name
  */
-function generateListItem(room){
+function generateListItem(room) {
     output = "<div id=\"" + room + "\"\\><ons-list-item tappable>";
     output += room;
     output += "</ons-list-item></div>"
@@ -35,7 +35,9 @@ function createUser(name, callback) {
     $.ajax({
         url: "https://saloums7.pythonanywhere.com/users/new",
         type: "POST",
-        headers: {"Access-Control-Allow-Origin": "*"},
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
         data: {
             "user": name
         }
@@ -72,7 +74,7 @@ function getEmptyRooms() {
         rooms.forEach(element => {
             domItem = generateListItem(element);
             $("#empty_rooms").append(domItem);
-            $("#"+element).click(function(){
+            $("#" + element).click(function () {
                 joinRoom(element);
             });
         });
@@ -83,16 +85,16 @@ function getEmptyRooms() {
  * Fetches a list of rooms assigned to current user
  * @param {string} user Username who's rooms must be fetched
  */
-function getAssignedRooms(){
+function getAssignedRooms() {
     $.ajax({
-        url: "https://saloums7.pythonanywhere.com/user/"+ username + "/rooms",
+        url: "https://saloums7.pythonanywhere.com/user/" + username + "/rooms",
         type: "GET"
-    }).done(function(data){
+    }).done(function (data) {
         rooms = data['rooms'];
         rooms.forEach(element => {
             domItem = generateListItem(element);
             $("#volunteer_rooms").append(domItem);
-            $("#"+element).click(function(){
+            $("#" + element).click(function () {
                 joinRoom(element);
             });
         });
@@ -114,19 +116,23 @@ function joinRoom(selected_room) {
         }
     }).done(function (data) {
         room = selected_room;
-        document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Get help'}});
+        document.querySelector('#myNavigator').pushPage('page2.html', {
+            data: {
+                title: 'Get help'
+            }
+        });
     });
 }
 
 
-function getFormattedSentMessage(message){
+function getFormattedSentMessage(message) {
     output = "<div class=\"sent_msg\">";
     output += message;
     output += "</div>";
     return output;
 }
 
-function getFormattedReceivedMessage(message){
+function getFormattedReceivedMessage(message) {
     output = "<div class=\"received_msg\">";
     output += message;
     output += "</div>";
@@ -144,16 +150,15 @@ function getRoomMessages(room) {
         type: "GET"
     }).done(function (data) {
         messages = data["messages"];
-        if(messages && messages.length > 0){
+        if (messages && messages.length > 0) {
             $("#chat_layout").empty();
             messages.forEach(element => {
                 user = element["sender"];
                 message = element["message"]
                 console.log(message);
-                if(user == username){
+                if (user == username) {
                     output = getFormattedSentMessage(message);
-                }
-                else {
+                } else {
                     output = getFormattedReceivedMessage(message);
                 }
                 $("#chat_layout").append(output);
@@ -182,72 +187,77 @@ function sendMessage() {
     });
 }
 
-function checkUsername(callback){
-  username = $("#username>input").val();
-  if(username == ""){
-    username = makeId();
-    $("#username>input").val(username);
-  }
-  console.log(username);
-  callback();
+function checkUsername(callback) {
+    username = $("#username>input").val();
+    if (username == "") {
+        username = makeId();
+        $("#username>input").val(username);
+    }
+    console.log(username);
+    callback();
 }
 
-document.addEventListener('init', function(event) {
+document.addEventListener('init', function (event) {
     var page = event.target;
-  
+
     if (page.id === 'page1') {
-      page.querySelector('#push-button').onclick = function() 
-      {
-        checkUsername(function(){
-          createUser(username, function(){
-            room = username;
-            document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Get help'}});
-          });
-        });
-      };
-     
-      page.querySelector('#push-button2').onclick = function() 
-      {
-        checkUsername(function(){
-          createVolunteer(username, function(){
-              getEmptyRooms();
-              getAssignedRooms();
-            document.querySelector('#myNavigator').pushPage('page3.html', {data: {title: 'Volunteer'}});
+        page.querySelector('#push-button').onclick = function () {
+            checkUsername(function () {
+                createUser(username, function () {
+                    room = username;
+                    document.querySelector('#myNavigator').pushPage('page2.html', {
+                        data: {
+                            title: 'Get help'
+                        }
+                    });
+                });
+            });
+        };
 
-          });
-        });
-      };
+        page.querySelector('#push-button2').onclick = function () {
+            checkUsername(function () {
+                createVolunteer(username, function () {
+                    getEmptyRooms();
+                    getAssignedRooms();
+                    document.querySelector('#myNavigator').pushPage('page3.html', {
+                        data: {
+                            title: 'Volunteer'
+                        }
+                    });
 
-    } else if (page.id === 'page2' || page.id ==='page3') {
-      page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-      if(page.id == "page2"){
-        page.querySelector("#send_btn").onclick = sendMessage;
-        update_interval = setInterval(function () {
-            if(room != "")
-                getRoomMessages(room);
-        }, update_delay);
-      }
-    } 
-  });
+                });
+            });
+        };
 
-   /* Implementation for drop down menus */
-  
-   window.fn = {};
+    } else if (page.id === 'page2' || page.id === 'page3') {
+        page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+        if (page.id == "page2") {
+            page.querySelector("#send_btn").onclick = sendMessage;
+            update_interval = setInterval(function () {
+                if (room != "")
+                    getRoomMessages(room);
+            }, update_delay);
+        }
+    }
+});
 
-   window.fn.open = function() {
-     var menu = document.getElementById('menu');
-     menu.open();
-   };
-   
-   window.fn.load = function(page, data) {
-     var content = document.getElementById('myNavigator');
-     var menu = document.getElementById('menu');
-     content.pushPage(page, data)
-       .then(menu.close.bind(menu));
-   };
-   
-   window.fn.pop = function() {
-     var content = document.getElementById('myNavigator');
-     content.popPage();
-   };
+/* Implementation for drop down menus */
 
+window.fn = {};
+
+window.fn.open = function () {
+    var menu = document.getElementById('menu');
+    menu.open();
+};
+
+window.fn.load = function (page, data) {
+    var content = document.getElementById('myNavigator');
+    var menu = document.getElementById('menu');
+    content.pushPage(page, data)
+        .then(menu.close.bind(menu));
+};
+
+window.fn.pop = function () {
+    var content = document.getElementById('myNavigator');
+    content.popPage();
+};

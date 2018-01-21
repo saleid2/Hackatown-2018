@@ -3,178 +3,178 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
 
 <body>
     <ons-splitter>
         <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
             <ons-list>
-              
-              <ons-list-item onclick="fn.load('report.html')" tappable>
-                Report
-              </ons-list-item>
-              <ons-list-item onclick="fn.load('tags.html')" tappable>
-                Tags
-              </ons-list-item>
-              <ons-list-item onclick="fn.load('review.html')" tappable>
-                Review
+
+                <ons-list-item onclick="fn.load('report.html')" tappable>
+                    Report
                 </ons-list-item>
-              
+                <ons-list-item onclick="fn.load('tags.html')" tappable>
+                    Tags
+                </ons-list-item>
+                <ons-list-item onclick="fn.load('review.html')" tappable>
+                    Review
+                </ons-list-item>
+
             </ons-list>
         </ons-splitter-side>
-        <ons-splitter-content id="content" > 
-        <ons-navigator id="myNavigator" page="page1.html"></ons-navigator>
+        <ons-splitter-content id="content">
+            <ons-navigator id="myNavigator" page="page1.html"></ons-navigator>
         </ons-splitter-content>
-      </ons-splitter>
+    </ons-splitter>
 
-  <template id="page1.html">
-    <!-- HOME PAGE -->
-    <ons-page id="page1">
-      <ons-toolbar>
-        <div class="center">Welcome to Bertha</div>
-      </ons-toolbar>
-      <div class='vertical_align'>
-        <section style="padding: 8px;">
-          <ons-input id="username" modifier="underbar" placeholder="Username" style="width:100%"></ons-input>
-        </section>
+    <template id="page1.html">
+        <!-- HOME PAGE -->
+        <ons-page id="page1">
+            <ons-toolbar>
+                <div class="center">Welcome to Bertha</div>
+            </ons-toolbar>
+            <div class='vertical_align'>
+                <section style="padding: 8px;">
+                    <ons-input id="username" modifier="underbar" placeholder="Username" style="width:100%"></ons-input>
+                </section>
 
-        <section style="padding: 8px">
-          <ons-button modifier="large" id="push-button">Get Help</ons-button>
-          <!-- Button to get to the "Get Help" page -->
+                <section style="padding: 8px">
+                    <ons-button modifier="large" id="push-button">Get Help</ons-button>
+                    <!-- Button to get to the "Get Help" page -->
 
-        </section>
+                </section>
 
-        <section style="padding: 8px">
-          <ons-button modifier="large" id="push-button2">Volunteer</ons-button>
-          <!-- Button to get to the "Volunteer" page -->
+                <section style="padding: 8px">
+                    <ons-button modifier="large" id="push-button2">Volunteer</ons-button>
+                    <!-- Button to get to the "Volunteer" page -->
 
-        </section>
+                </section>
 
-        <section style="padding: 8px">
-          <ons-button modifier="large" disabled="true">Certified</ons-button>
-          <!-- Button to get to the "Certified" page -->
+                <section style="padding: 8px">
+                    <ons-button modifier="large" disabled="true">Certified</ons-button>
+                    <!-- Button to get to the "Certified" page -->
 
-        </section>
-      </div>
-    </ons-page>
-  </template>
-
-  <template id="page2.html">
-    <!-- GET HELP PAGE -->
-    <ons-page id="page2">
-      <ons-toolbar>
-        <div class="left">
-          <ons-back-button>Home Page</ons-back-button>
-        </div>
-
-        <div class="right">
-            <ons-toolbar-button onclick="fn.open()">
-              <ons-icon icon="md-menu"></ons-icon>
-            </ons-toolbar-button>
-          </div>
-
-        <div class="center"></div>
-      </ons-toolbar>
-
-      <div id="chat_layout" style="top:0px; height:75vh; max-height: 75vh">
-
-      </div>
-
-      <div id="message_layout" style="width:100%;background-color: white;">
-        <div id="input" style="width:75%;float:left;">
-          <ons-input id="typed_msg" modifier="underbar" style="width:100%;" placeholder="Message..." float></ons-input>
-        </div>
-        <div id="send_btn" style="width:20%;margin-left:80%;">
-          <ons-button style="margin:4px;width:80%;text-align:center;" id="send_btn">Send</ons-button>
-        </div>
-      </div>
-
-    </ons-page>
-  </template>
-
-  <template id="page3.html">
-    <!-- VOLUNTEER PAGE -->
-    <ons-page id="page3">
-      <ons-toolbar>
-        <div class="left">
-          <ons-back-button>Home Page</ons-back-button>
-        </div>
-        <div class="center"></div>
-        <div class="right">
-          <ons-toolbar-button onclick="fn.open()">
-            <ons-icon icon="md-menu"></ons-icon>
-          </ons-toolbar-button>
-     </div>
-      </ons-toolbar>
-
-        
-      
-        <ons-tabbar swipeable position="auto">
-          <ons-tab page="tab1.html" label="Help Someone" icon="md-search" active>
-          </ons-tab>
-          <ons-tab page="tab2.html" label="Helping" icon="md-face">
-          </ons-tab>
-        </ons-tabbar>
-      
-      <template id="tab1.html">
-        <ons-page id="Tab1">
-          <ons-list id="empty_rooms"></ons-list>
+                </section>
+            </div>
         </ons-page>
-      </template>
-      
-      <template id="tab2.html">
-        <ons-page id="Tab2">
-          <ons-list id="volunteer_rooms"></ons-list>
+    </template>
+
+    <template id="page2.html">
+        <!-- GET HELP PAGE -->
+        <ons-page id="page2">
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button>Home Page</ons-back-button>
+                </div>
+
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+
+                <div class="center"></div>
+            </ons-toolbar>
+
+            <div id="chat_layout" style="top:0px; height:75vh; max-height: 75vh">
+
+            </div>
+
+            <div id="message_layout" style="width:100%;background-color: white;">
+                <div id="input" style="width:75%;float:left;">
+                    <ons-input id="typed_msg" modifier="underbar" style="width:100%;" placeholder="Message..." float></ons-input>
+                </div>
+                <div id="send_btn" style="width:20%;margin-left:80%;">
+                    <ons-button style="margin:4px;width:80%;text-align:center;" id="send_btn">Send</ons-button>
+                </div>
+            </div>
+
         </ons-page>
-      </template>
+    </template>
 
-    </ons-page>
-  </template>
+    <template id="page3.html">
+        <!-- VOLUNTEER PAGE -->
+        <ons-page id="page3">
+            <ons-toolbar>
+                <div class="left">
+                    <ons-back-button>Home Page</ons-back-button>
+                </div>
+                <div class="center"></div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/appJ.js"></script>
+
+
+            <ons-tabbar swipeable position="auto">
+                <ons-tab page="tab1.html" label="Help Someone" icon="md-search" active>
+                </ons-tab>
+                <ons-tab page="tab2.html" label="Helping" icon="md-face">
+                </ons-tab>
+            </ons-tabbar>
+
+            <template id="tab1.html">
+                <ons-page id="Tab1">
+                    <ons-list id="empty_rooms"></ons-list>
+                </ons-page>
+            </template>
+
+            <template id="tab2.html">
+                <ons-page id="Tab2">
+                    <ons-list id="volunteer_rooms"></ons-list>
+                </ons-page>
+            </template>
+
+        </ons-page>
+    </template>
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/appJ.js"></script>
 </body>
 
 </html>
 
 <style type="text/css">
-  .vertical_align {
-    position: absolute;
-    top: 35vh !important;
-    width: 100%;
-  }
+    .vertical_align {
+        position: absolute;
+        top: 35vh !important;
+        width: 100%;
+    }
 
-  .page__background {
-    background: url(back.jpg) no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-  }
+    .page__background {
+        background: url(back.jpg) no-repeat center center fixed;
+        background-size: cover;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+    }
 
-  .sent_msg{
-    margin-left: auto !important;
-    margin-right: 10px !important;
-    background-color:deepskyblue;
-    border-radius: 15px;
-    box-shadow: 2px 2px #888888;
-    padding: 15px;
-    margin: 10px;
-    width: 50%;
-    font-weight: bold;
-  }
+    .sent_msg {
+        margin-left: auto !important;
+        margin-right: 10px !important;
+        background-color: deepskyblue;
+        border-radius: 15px;
+        box-shadow: 2px 2px #888888;
+        padding: 15px;
+        margin: 10px;
+        width: 50%;
+        font-weight: bold;
+    }
 
-  .received_msg{
-    background-color: gainsboro;
-    border-radius: 15px;
-    box-shadow: 2px 2px #888888;
-    padding: 15px;
-    margin: 10px;
-    width: 50%;
-    font-weight: bold;
-  }
+    .received_msg {
+        background-color: gainsboro;
+        border-radius: 15px;
+        box-shadow: 2px 2px #888888;
+        padding: 15px;
+        margin: 10px;
+        width: 50%;
+        font-weight: bold;
+    }
 </style>
