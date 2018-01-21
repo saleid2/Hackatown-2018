@@ -1,8 +1,34 @@
+var username = "";
+var room = "";
+
+
+/**
+ * Randomly generates a string in case the user doesn't enter one
+ */
+function makeId() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 10; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
+/**
+ * Generates the item to add to the list of available rooms
+ * @param {string} room Room name
+ */
+function generateListItem(room){
+    output = "<div id=\"" + room + "\"<ons-list-item tappable>";
+    output += room;
+    output += "</ons-list-item></div>"
+    return output;
+}
 
 /**
  * Create new user
  * @param {string} name New user name
- * @returns {string} name of newly created room
  */
 function createUser(name) {
     $.ajax({
@@ -33,6 +59,7 @@ function createVolunteer(name) {
     });
 }
 
+
 /**
  * Get a list of empty rooms
  */
@@ -43,7 +70,31 @@ function getEmptyRooms() {
     }).done(function (data) {
         rooms = JSON.parse(data);
         rooms.forEach(element => {
-            // TODO: Add clickable room element to join
+            domItem = generateListItem(element);
+            $("#empty_rooms").append(domItem);
+            $("#"+element).click(function(){
+                joinRoom(element);
+            });
+        });
+    });
+}
+
+/**
+ * Fetches a list of rooms assigned to current user
+ * @param {string} user Username who's rooms must be fetched
+ */
+function getAssignedRooms(user){
+    $.ajax({
+        url: "http://localhost:5000//user/"+ user + "/rooms",
+        type: "GET"
+    }).done(function(data){
+        rooms = JSON.parse(data);
+        rooms.forEach(element => {
+            domItem = generateListItem(element);
+            $("#volunteer_rooms").append(domItem);
+            $("#"+element).click(function(){
+                joinRoom(element);
+            });
         });
     });
 }
@@ -62,6 +113,7 @@ function joinRoom(room, user) {
             "room": room
         }
     }).done(function (data) {
+        // Navigate to chat UI
         // TODO : Get messages
     });
 }
@@ -74,7 +126,7 @@ function getRoomMessages(room) {
     $.ajax({
         url: "http://localhost:5000/room/" + room + "/message",
         type: "GET"
-    }).done(function(data){
+    }).done(function (data) {
         messages = JSON.parse(data);
         messages.forEach(element => {
             user = element["sender"];
@@ -90,7 +142,7 @@ function getRoomMessages(room) {
  * @param {string} message Message to send
  * @param {string} user User sending message
  */
-function sendMessage(room, message, user){
+function sendMessage(room, message, user) {
     $.ajax({
         url: "http://localhost:5000/room/" + room + "/message",
         type: "POST",
@@ -98,7 +150,7 @@ function sendMessage(room, message, user){
             "user": user,
             "message": message
         }
-    }).done(function(data){
+    }).done(function (data) {
         // TODO: Clear textfield
     });
 }

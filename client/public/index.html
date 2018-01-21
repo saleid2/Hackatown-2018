@@ -19,6 +19,10 @@
         <div class="center">Welcome to Bertha</div>
       </ons-toolbar>
       <div class='vertical_align'>
+        <section style="padding: 8px;">
+          <ons-input id="username" modifier="underbar" placeholder="Username" style="width:100%"></ons-input>
+        </section>
+
         <section style="padding: 8px">
           <ons-button modifier="large" id="push-button">Get Help</ons-button>
           <!-- Button to get to the "Get Help" page -->
@@ -66,7 +70,26 @@
         <div class="center"></div>
       </ons-toolbar>
 
-      <p>WHO YOU GON HELP?????</p>
+
+      
+        <ons-tabbar swipeable position="auto">
+          <ons-tab page="tab1.html" label="Help Someone" icon="md-search" active>
+          </ons-tab>
+          <ons-tab page="tab2.html" label="Helping" icon="md-face">
+          </ons-tab>
+        </ons-tabbar>
+      
+      <template id="tab1.html">
+        <ons-page id="Tab1">
+          <ons-list id="empty_rooms"></ons-list>
+        </ons-page>
+      </template>
+      
+      <template id="tab2.html">
+        <ons-page id="Tab2">
+          <ons-list id="volunteer_rooms"></ons-list>
+        </ons-page>
+      </template>
 
     </ons-page>
   </template>
