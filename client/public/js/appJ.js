@@ -33,7 +33,7 @@ function generateListItem(room){
  */
 function createUser(name, callback) {
     $.ajax({
-        url: "http://localhost:5000/users/new",
+        url: "https://saloums7.pythonanywhere.com/users/new",
         type: "POST",
         headers: {"Access-Control-Allow-Origin": "*"},
         data: {
@@ -48,7 +48,7 @@ function createUser(name, callback) {
  */
 function createVolunteer(name, callback) {
     $.ajax({
-        url: "http://localhost:5000/users/new_volunteer",
+        url: "https://saloums7.pythonanywhere.com/users/new_volunteer",
         type: "POST",
         data: {
             "user": name
@@ -64,7 +64,7 @@ function createVolunteer(name, callback) {
  */
 function getEmptyRooms() {
     $.ajax({
-        url: "http://localhost:5000/rooms/empty",
+        url: "https://saloums7.pythonanywhere.com/rooms/empty",
         type: "GET"
     }).done(function (data) {
         rooms = data['rooms'];
@@ -85,7 +85,7 @@ function getEmptyRooms() {
  */
 function getAssignedRooms(){
     $.ajax({
-        url: "http://localhost:5000/user/"+ username + "/rooms",
+        url: "https://saloums7.pythonanywhere.com/user/"+ username + "/rooms",
         type: "GET"
     }).done(function(data){
         rooms = data['rooms'];
@@ -106,7 +106,7 @@ function getAssignedRooms(){
  */
 function joinRoom(selected_room) {
     $.ajax({
-        url: "http://localhost:5000/rooms/join",
+        url: "https://saloums7.pythonanywhere.com/rooms/join",
         type: "POST",
         data: {
             "user": username,
@@ -140,7 +140,7 @@ function getFormattedReceivedMessage(message){
  */
 function getRoomMessages(room) {
     $.ajax({
-        url: "http://localhost:5000/room/" + room + "/message",
+        url: "https://saloums7.pythonanywhere.com/room/" + room + "/message",
         type: "GET"
     }).done(function (data) {
         messages = data["messages"];
@@ -171,7 +171,7 @@ function getRoomMessages(room) {
 function sendMessage() {
     var message = $("#typed_msg>input").val();
     $.ajax({
-        url: "http://localhost:5000/room/" + room + "/message",
+        url: "https://saloums7.pythonanywhere.com/room/" + room + "/message",
         type: "POST",
         data: {
             "user": username,
