@@ -2,3 +2,5 @@
 Bertha/\.idea/
 
 server/\.idea/
+
+client/firebase-debug\.log
