@@ -7,7 +7,7 @@ CORS(app)
 empty_rooms = []
 volunteers = []
 linked_rooms = {}
-room_unread_messages = {}
+room_messages_log = {}
 
 @app.route('/')
 def hello_world():
@@ -21,7 +21,7 @@ def add_new_user():
     empty_rooms.append(user)
     room = {}
     room["room_name"] = user
-    room_unread_messages[user] = []
+    room_messages_log[user] = []
     return jsonify(room)
 
 @app.route('/users/new_volunteer', methods=['POST'])
@@ -58,9 +58,9 @@ def get_user_rooms(user):
 @app.route('/room/<room>/message', methods=['GET', 'POST'])
 def update_messages(room):
     if request.method == 'GET':
-        outgoing_messages = room_unread_messages[room]
-        room_unread_messages[room] = {}
-        return jsonify(outgoing_messages)
+        outgoing_messages = room_messages_log[room]
+        #room_messages_log[room] = {}
+        return jsonify(messages = outgoing_messages)
     else:
         incoming_data = request.form
         incoming_message = incoming_data['message']
@@ -68,13 +68,13 @@ def update_messages(room):
         message_data = {}
         message_data['sender'] = sender
         message_data['message'] = incoming_message
-        room_messages = room_unread_messages[room]
+        room_messages = room_messages_log[room]
         if not room_messages:
             room_messages = [message_data]
         else:
             room_messages.append(message_data)
-        room_unread_messages[room] = room_messages
-        return
+        room_messages_log[room] = room_messages
+        return jsonify()
 
 
 

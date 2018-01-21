@@ -54,8 +54,18 @@
         <div class="center"></div>
       </ons-toolbar>
 
+      <div id="chat_layout" style="top:0px; height:90vh; max-height: 90vh">
 
-      <p>WHAT YOU NEED HELP WITH????</p>
+      </div>
+
+      <div id="message_layout" style="width:100%;background-color: white;">
+        <div id="input" style="width:80%;float:left;">
+          <ons-input id="typed_msg" modifier="underbar" style="width:100%;" placeholder="Message..." float></ons-input>
+        </div>
+        <div id="send_btn" style="width:20%;margin-left:80%;">
+          <ons-button style="margin:4px;width:80%;text-align:center;" id="send_btn">Send</ons-button>
+        </div>
+      </div>
 
     </ons-page>
   </template>
@@ -113,5 +123,27 @@
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+  }
+
+  .sent_msg{
+    margin-left: auto !important;
+    margin-right: 10px !important;
+    background-color:deepskyblue;
+    border-radius: 15px;
+    box-shadow: 2px 2px #888888;
+    padding: 15px;
+    margin: 10px;
+    width: 50%;
+    font-weight: bold;
+  }
+
+  .received_msg{
+    background-color: gainsboro;
+    border-radius: 15px;
+    box-shadow: 2px 2px #888888;
+    padding: 15px;
+    margin: 10px;
+    width: 50%;
+    font-weight: bold;
   }
 </style>

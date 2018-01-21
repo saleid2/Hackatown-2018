@@ -1,5 +1,7 @@
 var username = "";
 var room = "";
+var update_interval;
+var update_delay = 1000;
 
 /**
  * Randomly generates a string in case the user doesn't enter one
@@ -99,22 +101,38 @@ function getAssignedRooms(){
 
 /**
  * Allow volunteer user to join a chat room
- * @param {string} room Room that volunteer wants to join
+ * @param {string} selected_room Room that volunteer wants to join
  * @param {string} user Volunteer's username
  */
-function joinRoom(room) {
+function joinRoom(selected_room) {
     $.ajax({
         url: "http://localhost:5000/rooms/join",
         type: "POST",
         data: {
             "user": username,
-            "room": room
+            "room": selected_room
         }
     }).done(function (data) {
-        // Navigate to chat UI
-        // TODO : Get messages
+        room = selected_room;
+        document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Get help'}});
     });
 }
+
+
+function getFormattedSentMessage(message){
+    output = "<div class=\"sent_msg\">";
+    output += message;
+    output += "</div>";
+    return output;
+}
+
+function getFormattedReceivedMessage(message){
+    output = "<div class=\"received_msg\">";
+    output += message;
+    output += "</div>";
+    return output;
+}
+
 
 /**
  * Get recent messages from room
@@ -125,12 +143,22 @@ function getRoomMessages(room) {
         url: "http://localhost:5000/room/" + room + "/message",
         type: "GET"
     }).done(function (data) {
-        messages = JSON.parse(data);
-        messages.forEach(element => {
-            user = element["sender"];
-            message = element["message"]
-            // TODO: Add message to display
-        });
+        messages = data["messages"];
+        if(messages && messages.length > 0){
+            $("#chat_layout").empty();
+            messages.forEach(element => {
+                user = element["sender"];
+                message = element["message"]
+                console.log(message);
+                if(user == username){
+                    output = getFormattedSentMessage(message);
+                }
+                else {
+                    output = getFormattedReceivedMessage(message);
+                }
+                $("#chat_layout").append(output);
+            });
+        }
     })
 }
 
@@ -140,16 +168,17 @@ function getRoomMessages(room) {
  * @param {string} message Message to send
  * @param {string} user User sending message
  */
-function sendMessage(room, message, user) {
+function sendMessage() {
+    var message = $("#typed_msg>input").val();
     $.ajax({
         url: "http://localhost:5000/room/" + room + "/message",
         type: "POST",
         data: {
-            "user": user,
+            "user": username,
             "message": message
         }
     }).done(function (data) {
-        // TODO: Clear textfield
+        $("#typed_msg>input").val('');
     });
 }
 
@@ -163,10 +192,6 @@ function checkUsername(callback){
   callback();
 }
 
-
-
-
-
 document.addEventListener('init', function(event) {
     var page = event.target;
   
@@ -175,6 +200,7 @@ document.addEventListener('init', function(event) {
       {
         checkUsername(function(){
           createUser(username, function(){
+            room = username;
             document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Get help'}});
           });
         });
@@ -194,5 +220,12 @@ document.addEventListener('init', function(event) {
 
     } else if (page.id === 'page2' || page.id ==='page3') {
       page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-    }
+      if(page.id == "page2"){
+        page.querySelector("#send_btn").onclick = sendMessage;
+        update_interval = setInterval(function () {
+            if(room != "")
+                getRoomMessages(room);
+        }, update_delay);
+      }
+    } 
   });
