@@ -2,7 +2,7 @@
 
 
 /**
- * 
+ * Create new user
  * @param {string} name New user name
  * @returns {string} name of newly created room
  */
@@ -19,6 +19,10 @@ function createUser(name) {
     });
 }
 
+/**
+ * Create new volunteer
+ * @param {string} name New volunteer name
+ */
 function createVolunteer(name) {
     $.ajax({
         url: "http://localhost:5000/users/new_volunteer",
@@ -31,6 +35,9 @@ function createVolunteer(name) {
     });
 }
 
+/**
+ * Get a list of empty rooms
+ */
 function getEmptyRooms() {
     $.ajax({
         url: "http://localhost:5000/rooms/empty",
@@ -43,6 +50,11 @@ function getEmptyRooms() {
     });
 }
 
+/**
+ * Allow volunteer user to join a chat room
+ * @param {string} room Room that volunteer wants to join
+ * @param {string} user Volunteer's username
+ */
 function joinRoom(room, user) {
     $.ajax({
         url: "http://localhost:5000/rooms/join",
@@ -56,6 +68,10 @@ function joinRoom(room, user) {
     });
 }
 
+/**
+ * Get recent messages from room
+ * @param {string} room Room joined by volunteer
+ */
 function getRoomMessages(room) {
     $.ajax({
         url: "http://localhost:5000/room/" + room + "/message",
@@ -70,6 +86,12 @@ function getRoomMessages(room) {
     })
 }
 
+/**
+ * Send message
+ * @param {string} room Name of room
+ * @param {string} message Message to send
+ * @param {string} user User sending message
+ */
 function sendMessage(room, message, user){
     $.ajax({
         url: "http://localhost:5000/room/" + room + "/message",
