@@ -1,7 +1,7 @@
 var username = "";
 var room = "";
 var update_interval;
-var update_delay = 1000;
+var update_delay = 100;
 
 /**
  * Randomly generates a string in case the user doesn't enter one
