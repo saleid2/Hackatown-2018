@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <link rel="shortcut icon" type="image/png" href="favicon.ico" />
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 </head>
 
@@ -38,6 +39,7 @@
                 <div class="center">Welcome to Bertha</div>
             </ons-toolbar>
             <div class='vertical_align'>
+                <img src="goat.png" id="logo"/>
                 <section style="padding: 8px;">
                     <ons-input id="username" modifier="underbar" placeholder="Username" style="width:100%"></ons-input>
                 </section>
@@ -80,15 +82,15 @@
                 <div class="center"></div>
             </ons-toolbar>
 
-            <div id="chat_layout" style="top:0px; height:75vh; max-height: 75vh">
+            <div id="chat_layout" style="top:0px; height:70vh; max-height: 70vh">
 
             </div>
 
-            <div id="message_layout" style="width:100%;background-color: white;">
-                <div id="input" style="width:75%;float:left;">
+            <div id="message_layout" style="width:100%; background-color: white;bottom:0 !important;position:fixed;">
+                <div id="input" style="width:75%;float:left;margin-left:20px">
                     <ons-input id="typed_msg" modifier="underbar" style="width:100%;" placeholder="Message..." float></ons-input>
                 </div>
-                <div id="send_btn" style="width:20%;margin-left:80%;">
+                <div id="send_btn" style="width:20%;padding-left:80%;">
                     <ons-button style="margin:4px;width:80%;text-align:center;" id="send_btn">Send</ons-button>
                 </div>
             </div>
@@ -144,12 +146,12 @@
 <style type="text/css">
     .vertical_align {
         position: absolute;
-        top: 35vh !important;
+        top: 10vh !important;
         width: 100%;
     }
 
     .page__background {
-        background: url(back.jpg) no-repeat center center fixed;
+        background-color: gainsboro;
         background-size: cover;
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -176,5 +178,10 @@
         margin: 10px;
         width: 50%;
         font-weight: bold;
+    }
+
+    #logo{
+        display: block;
+        margin: 0 auto;
     }
 </style>
