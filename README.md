@@ -53,4 +53,4 @@ Seriously, we learned that next time, we should be prepared, as in have our envi
 
 Go big or go home. (We're gonna go home and sleep thank you and good night)
 
-We would obviously like to move it to a native application for Android in the future, as well as implementing the missing features we were hoping to have!
+We would obviously like to move it to a native application for Android in the future, as well as implement the missing features we were hoping to have!
